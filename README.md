@@ -1,4 +1,4 @@
-# RESaL - Resolution at Launch v1.0
+# RESaL - Resolution at Launch ![GitHub Release](https://img.shields.io/github/v/release/twcas/RESaL)
 
 ## About
 
