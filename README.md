@@ -1,7 +1,5 @@
 # RESaL - Resolution at Launch ![GitHub Release](https://img.shields.io/github/v/release/twcas/RESaL)
 
-## About
-
 Now that "Exclusive Fullscreen" is practically an extinct feature nowadays, if you're tired of manually changing your desktop resolution to unlock upscaling resolutions in your game every time you launch it, this script may help you.
 
 RESaL is a Windows batch script that **automatically switches your screen resolution when a game or application starts and restores it when it closes**. It is useful when you want to run a game at a higher resolution with upscaling but are locked to your monitor's native resolution.
