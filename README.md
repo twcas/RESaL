@@ -6,7 +6,7 @@ Now that "Exclusive Fullscreen" is practically an extinct feature nowadays, if y
 
 RESaL is a Windows batch script that **automatically switches your screen resolution when a game or application starts and restores it when it closes**. It is useful when you want to run a game at a higher resolution with upscaling but are locked to your monitor's native resolution.
 
-The script will automatically detect and save your current resolution, monitor the running processes, detect when the target game or application executable starts, apply the target resolution via QRes, and revert to the original resolution once the process ends automatically.
+The script will automatically detect and save your current resolution, monitor the running processes, detect when the target game or application executable starts, apply the target resolution via QRes, and automatically revert to the original resolution once the process ends.
 
 ## Requirements
 
@@ -32,4 +32,4 @@ TARGET_EXE=
 | `TARGET_X` | Desired horizontal resolution in pixels (e.g. `3840`). |
 | `TARGET_Y` | Desired vertical resolution in pixels (e.g. `2160`). |
 | `TARGET_R` | Desired refresh rate in Hz (e.g. `144`). |
-| `TARGET_EXE` | The game's process name as it appears in Task Manager (e.g. `re4.exe`). If not set, the script will prompt for it at runtime. |
+| `TARGET_EXE` | The application's process name as it appears in Task Manager (e.g. `re4.exe`). If not set, the script will prompt for it at runtime. |

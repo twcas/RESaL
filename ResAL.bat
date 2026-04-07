@@ -3,7 +3,7 @@
 cd /d "%~dp0"
 
 if not exist "%~dp0QRes.exe" (
-    echo Error: 'QRes.exe' not found.
+    echo Error: 'QRes.exe' not found. Download it here: https://www.majorgeeks.com/mg/getmirror/qres,1.html
     pause
     exit /b 1
 )
