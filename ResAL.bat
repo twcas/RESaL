@@ -2,10 +2,50 @@
 
 cd /d "%~dp0"
 
+set "QRES_URL=https://files2.majorgeeks.com/6cc08f7ed7b4cf7c3b4bef74c37e6ff587d497d4/video/qres.zip"
+set "ZIP_PATH=%~dp0qres.zip"
+set "EXTRACT_PATH=%~dp0"
+
 if not exist "%~dp0QRes.exe" (
-    echo Error: 'QRes.exe' not found. Download it here: https://www.majorgeeks.com/mg/getmirror/qres,1.html
-    pause
-    exit /b 1
+    echo Error: 'QRes.exe' not found. Attempting to download it automatically...
+
+    curl -L --fail "%QRES_URL%" -o "%ZIP_PATH%" >nul 2>&1
+
+    if not exist "%ZIP_PATH%" (
+        echo Error: download via curl failed. Trying PowerShell...
+
+        powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+            "(New-Object System.Net.WebClient).DownloadFile('%QRES_URL%', '%ZIP_PATH%')" >nul 2>&1
+    )
+
+    if not exist "%ZIP_PATH%" (
+        echo Error: failed to download 'qres.zip'. Download it manually and place 'QRes.exe' in the same folder as this batch script.
+        pause
+        exit /b 1
+    )
+
+    for %%A in ("%ZIP_PATH%") do if %%~zA==0 (
+        echo Error: downloaded file is empty. Download it manually and place 'QRes.exe' in the same folder as this batch script.
+        del "%ZIP_PATH%" >nul 2>&1
+        pause
+        exit /b 1
+    )
+
+    echo Extracting...
+
+    powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+        "Expand-Archive -Path '%ZIP_PATH%' -DestinationPath '%EXTRACT_PATH%' -Force" >nul 2>&1
+
+    if not exist "%~dp0QRes.exe" (
+        echo Error: extraction failed or 'QRes.exe' not found inside the zip file. Download it manually and place 'QRes.exe' in the same folder as this batch script.
+        del "%ZIP_PATH%" >nul 2>&1
+        pause
+        exit /b 1
+    )
+
+    del "%ZIP_PATH%" >nul 2>&1
+
+    echo QRes ready.
 )
 
 set "CONFIG=%~dp0config.ini"
@@ -27,8 +67,12 @@ if not defined TARGET_X (echo Error: 'TARGET_X' not set in 'config.ini' & pause 
 if not defined TARGET_Y (echo Error: 'TARGET_Y' not set in 'config.ini' & pause & exit /b 1)
 if not defined TARGET_R (echo Error: 'TARGET_R' not set in 'config.ini' & pause & exit /b 1)
 if not defined TARGET_EXE (
-    echo Application process name not set in 'config.ini'.
-    set /p TARGET_EXE=Enter the application/game EXE name ^(e.g. 're4.exe'^): 
+    set /p TARGET_EXE=Application process name not set in 'config.ini'. Enter the application/game EXE name ^(e.g. 're4.exe'^): 
+    if not defined TARGET_EXE (
+        echo Error: no application name provided.
+        pause
+        exit /b 1
+    )
 ) else (
     echo Application process name set in 'config.ini': %TARGET_EXE%
 )
