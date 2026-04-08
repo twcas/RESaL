@@ -6,6 +6,11 @@ RESaL is a Windows batch script that **automatically switches your screen resolu
 
 The script will automatically detect and save your current resolution, monitor the running processes, detect when the target game or application executable starts, apply the target resolution via QRes, and automatically revert to the original resolution once the process ends.
 
+<details>
+  <summary>demonstration gif</summary>
+  <img src="https://i.imgur.com/9zyYN5J.gif">
+</details>
+
 ## Requirements
 
 - **QRes v1.1** by Anders Kjersem — [download it from MajorGeeks](https://www.majorgeeks.com/mg/getmirror/qres,1.html) and place `QRes.exe` in the same folder as the script.
